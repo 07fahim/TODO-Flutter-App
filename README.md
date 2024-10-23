@@ -19,4 +19,4 @@ samples, guidance on mobile development, and a full API reference.
 https://github.com/user-attachments/assets/363007d2-e758-4486-9740-89e827a43ca4
 
 
-![TODO app UI](https://github.com/user-attachments/assets/c6fd3862-f762-4648-a530-224b2bafc305)
+![TODO app UI]:([https://github.com/user-attachments/assets/c6fd3862-f762-4648-a530-224b2bafc305](http://localhost:52536/))
