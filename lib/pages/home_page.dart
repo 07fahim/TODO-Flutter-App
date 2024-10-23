@@ -22,6 +22,16 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  //add new task
+  void createnewTask() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +44,16 @@ class _HomePageState extends State<HomePage> {
           ),
           titleTextStyle: TextStyle(fontSize: 24, color: Colors.black87),
           centerTitle: true,
+        ),
+        floatingActionButton: FloatingActionButton(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          backgroundColor: Colors.blue.shade300,
+          onPressed: createnewTask,
+          child: Icon(
+            Icons.add,
+            color: Colors.white70,
+          ),
         ),
         body: ListView.builder(
             itemCount: todoLists.length,
