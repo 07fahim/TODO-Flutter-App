@@ -10,6 +10,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //text controller
+  final _controller = TextEditingController();
+
   //Task Lits
   List todoLists = [
     ['Doing Code', false],
@@ -23,14 +26,34 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  // save new task
+  void saveNewTask() {
+    setState(() {
+      todoLists.add([_controller.text, false]);
+      _controller.clear();
+    });
+    Navigator.of(context).pop();
+  }
+
   //add new task
   void createnewTask() {
     showDialog(
       context: context,
       builder: (context) {
-        return DialogBox();
+        return DialogBox(
+          controller: _controller,
+          onsave: saveNewTask,
+          oncancel: () => Navigator.of(context).pop(),
+        );
       },
     );
+  }
+
+  // delete task
+  void deleteTask(int index) {
+    setState(() {
+      todoLists.removeAt(index);
+    });
   }
 
   @override
@@ -40,10 +63,10 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           backgroundColor: Colors.blue.shade100,
           elevation: 0,
-          title: Text(
+          title: const Text(
             "TO DO",
           ),
-          titleTextStyle: TextStyle(fontSize: 24, color: Colors.black87),
+          titleTextStyle: const TextStyle(fontSize: 24, color: Colors.black87),
           centerTitle: true,
         ),
         floatingActionButton: FloatingActionButton(
@@ -51,7 +74,7 @@ class _HomePageState extends State<HomePage> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           backgroundColor: Colors.blue.shade300,
           onPressed: createnewTask,
-          child: Icon(
+          child: const Icon(
             Icons.add,
             color: Colors.white70,
           ),
@@ -60,9 +83,11 @@ class _HomePageState extends State<HomePage> {
             itemCount: todoLists.length,
             itemBuilder: (context, index) {
               return TodoTile(
-                  taskName: todoLists[index][0],
-                  taskCompleted: todoLists[index][1],
-                  onChanged: (value) => checkBoxChanged(value, index));
+                taskName: todoLists[index][0],
+                taskCompleted: todoLists[index][1],
+                onChanged: (value) => checkBoxChanged(value, index),
+                deleteFunction: (context) => deleteTask(index),
+              );
             }));
   }
 }
